@@ -1,14 +1,17 @@
-// Aquí configuración de conexión a la base de datos
 const mongoose = require('mongoose');
 
-const DB_URI = 'mongodb://localhost:27017/astronomy';
-
 mongoose
-  .connect(DB_URI)
-  .then(() => {
-    console.info('Connected to DB!');
+  .connect("mongodb://localhost/astronomy", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+    useCreateIndex: true,
   })
-  .catch((err) => console.error(err));
+  .then(() => console.info("> succesfully connected to mongoDB"))
+  .catch((error) => {
+    console.error("> error trying to connect to mongoDB: ", error.message);
+    process.exit(0);
+  });
 
 process.on('SIGINT', () => {
   mongoose.connection.close(() => {

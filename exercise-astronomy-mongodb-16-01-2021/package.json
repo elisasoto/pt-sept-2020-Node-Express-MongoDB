@@ -12,7 +12,9 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
+    "mapbox-geocoding": "^0.1.5",
     "mongoose": "^5.11.12",
-    "node": "^15.4.0"
+    "node": "^15.4.0",
+    "nodemon": "^2.0.7"
   }
 }
