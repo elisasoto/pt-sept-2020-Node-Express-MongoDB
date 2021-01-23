@@ -8,5 +8,6 @@ route.use('/landings', require('./landings'))
 route.use('/neas', require('./neas'))
 
 // Middleware para el enrutado de Users
+route.use('/guild', require('./users'))
 
 module.exports = route

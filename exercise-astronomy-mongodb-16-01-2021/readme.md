@@ -73,7 +73,7 @@
 
   ### Colección Users
 
-  * Cada usuario deberá contener los siguientes campos (para el modelo)
+  [x]* Cada usuario deberá contener los siguientes campos (para el modelo)
     - name (`String`, obligatorio)
     - nickname (`String`)
     - affiliatedNumber (`Number`, único, obligatorio)
@@ -95,22 +95,22 @@
 
   * Ruta base: `http://localhost:3000/astronomy/guild`
 
-    1. POST para poder unirte a la asociación de astronomía
+    [x]1. POST para poder unirte a la asociación de astronomía
     - Ejemplo: `/astronomy/guild`
 
-    2. GET para obtener nombre, edad (*sí, edad, no fecha de nacimiento*), ocupación, número de afiliado, puntos y fecha de afiliación de un usuario dado su número de afiliación
+    [x]2. GET para obtener nombre, edad (*sí, edad, no fecha de nacimiento*), ocupación, número de afiliado, puntos y fecha de afiliación de un usuario dado su número de afiliación
     - Ejemplo: `/astronomy/guild/123-23-45-33Y`
 
-    3. GET para obtener la información de todos los badges de un usuario dado a partir de su número de afiliación
+    [x]3. GET para obtener la información de todos los badges de un usuario dado a partir de su número de afiliación
     - Ejemplo: `/astronomy/guild/123-23-45-33Y/badges`
 
-    4. GET para obtener la lista de todos los NEAs descubiertos por un usuario dado a partir de su número de afiliación
+    [x]4. GET para obtener la lista de todos los NEAs descubiertos por un usuario dado a partir de su número de afiliación
     - Ejemplo: `/astronomy/guild/123-23-45-33Y/neas`
 
-    5. GET para obtener la lista de todos los NECs descubiertos por un usuario dado a partir de su número de afiliación
+    [x]5. GET para obtener la lista de todos los NECs descubiertos por un usuario dado a partir de su número de afiliación
     - Ejemplo: `/astronomy/guild/123-23-45-33Y/necs`
 
-    6. GET para obtener cuántos puntos tiene ese usuario
+    [x]6. GET para obtener cuántos puntos tiene ese usuario
     - Ejemplo: `/astronomy/guild/123-23-45-33Y/points`
 
     7. PUT para que un usuario pueda modificar su nickname y su ocupación

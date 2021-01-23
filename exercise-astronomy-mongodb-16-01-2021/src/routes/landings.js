@@ -88,7 +88,6 @@ route.get("/date", async (req, res, next) => {
       },
     });
 
-    console.info("> landings retrieved: ", result);
     res.status(200).json({
       success: true,
       data: result,
@@ -105,7 +104,7 @@ route.get("/date", async (req, res, next) => {
 
 route.get("/:name", async (req, res, next) => {
   try {
-    let result = await LandingsSchema.find(
+    const result = await LandingsSchema.find(
       { name: req.params.name },
       { name: 1, geolocation: 1, _id: 0, reclat: 1, reclong: 1 }
     );
