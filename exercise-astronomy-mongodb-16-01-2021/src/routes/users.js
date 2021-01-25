@@ -1,6 +1,7 @@
 const route = require("express").Router();
 const UsersSchema = require("../models/Users");
 const fns = require("date-fns");
+const { urlOption } = require("../utils/users.utils");
 
 // Endpoints relativos a Users
 // http://localhost:3000/astronomy/guild
@@ -30,6 +31,8 @@ route.post("/", async (req, res, next) => {
     next(new Error("error retrieving users"));
   }
 });
+
+
 
 // 2. GET para obtener nombre, edad (*sí, edad, no fecha de nacimiento*), ocupación, número de afiliado, puntos y fecha de afiliación de un usuario dado su número de afiliación
 //     - Ejemplo: `/astronomy/guild/123-23-45-33Y`
@@ -78,18 +81,7 @@ route.get("/:aff", async (req, res, next) => {
   }
 });
 
-// endpoints 3, 4 ,5 y 6, funcion 
-
-const urlOption = (url) =>
-url.params.options === "badges"
-    ? { affiliatedNumber: 1, badges: 1, _id: 0 }
-    : url.params.options === "neas"
-    ? { affiliatedNumber: 1, neasDiscovered: 1, _id: 0 }
-    : url.params.options === "necs"
-    ? { affiliatedNumber: 1, necsDiscovered: 1, _id: 0 }
-    : url.params.options === "points"
-    ? { affiliatedNumber: 1, astronomicalPoints: 1, _id: 0 }
-    : {};
+// endpoints 3, 4 ,5 y 6, funcion
 
 route.get("/:aff/:options", async (req, res, next) => {
   try {
@@ -109,9 +101,86 @@ route.get("/:aff/:options", async (req, res, next) => {
   }
 });
 
-route.put('/', async(req,res,next)=>{
+// 7. PUT para que un usuario pueda modificar su nickname y su ocupación
+//     - Ejemplo: `/astronomy/guild/123-23-45-33Y`
+
+route.put("/:aff", async (req, res, next) => {
+  try {
+    const dataToModify = req.body;
+
+    const modifiedUser = await UsersSchema.updateOne(
+      { affiliatedNumber: Number(req.params.aff) },
+      { $set: { nickname: dataToModify.nickname, occupation: dataToModify.occupation } }
+    );
+
+    const result = await UsersSchema.find(
+      { affiliatedNumber: Number(req.params.aff) }
+    )
+
+    res.status(200).json({
+      success: true,
+      data: result,
+    });
+  } catch (error) {
+    console.error("> error getting a new user: ", error.message);
+
+    next(new Error("error retrieving users"));
+  }
+});
 
 
+// 10. PUT para modificar el campo deleted a true cuando el usuario quiera darse de baja de la asociación
+//     - Ejemplo: `/astronomy/guild/123-23-45-33Y/delete`
+
+
+
+route.put("/:aff/:delete", async (req, res, next) => {
+  try {
+    const {aff} = req.params
+
+    const modifiedUser = await UsersSchema.updateOne(
+      { affiliatedNumber: Number(aff) },
+      { $set: { deleted: true} }
+    );
+
+    const result = await UsersSchema.find(
+      { affiliatedNumber: Number(aff) },
+      {name: 1, _id: 0, deleted: 1}
+    )
+
+    res.status(200).json({
+      success: true,
+      data: result,
+    });
+  } catch (error) {
+    console.error("> error modifying a  user: ", error.message);
+
+    next(new Error("error modifying users"));
+  }
+});
+
+// 11. DELETE para eliminar definitivamente a un usuario si de verdad no quiere volver a la asociación
+//     - Ejemplo: `/astronomy/guild/123-23-45-33Y`
+
+route.delete("/:aff", async (req, res, next)=> {
+  try {
+    
+    const {aff} = req.params
+
+    const userToDelete = await UsersSchema.deleteOne(
+      { affiliatedNumber: Number(aff) }
+    )
+
+    res.status(200).json({
+      success: true,
+      data: userToDelete,
+    });
+
+  }catch (error){
+    console.error("> error deleting a user: ", error.message);
+
+    next(new Error("error deleting users"));
+  }
 })
 
 module.exports = route;

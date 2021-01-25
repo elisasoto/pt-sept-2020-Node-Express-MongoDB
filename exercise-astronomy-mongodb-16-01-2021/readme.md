@@ -113,7 +113,7 @@
     [x]6. GET para obtener cuántos puntos tiene ese usuario
     - Ejemplo: `/astronomy/guild/123-23-45-33Y/points`
 
-    7. PUT para que un usuario pueda modificar su nickname y su ocupación
+    [x]7. PUT para que un usuario pueda modificar su nickname y su ocupación
     - Ejemplo: `/astronomy/guild/123-23-45-33Y`
 
     8. PUT para que cada vez que un usuario descubra un NEA se añada el nombre del asteroide al array de asteroides descubiertos. Además, si llega a 5 la suma entre neas y necs deberá pasar a true el campo “given” del badge correspondiente. Recuerda también que si es su primer NEA, hay otro badge relativo a dicho logro!
@@ -126,8 +126,8 @@
       * Si todos los logros anteriores han sido obtenidos se deberá desbloquear, para ese usuario, el último de todos los logros
       * Recuerda también ir sumándole los puntos correspondientes al logro cada vez que el usuario desbloquee uno!
 
-    10. PUT para modificar el campo deleted a true cuando el usuario quiera darse de baja de la asociación
+    [x]10. PUT para modificar el campo deleted a true cuando el usuario quiera darse de baja de la asociación
     - Ejemplo: `/astronomy/guild/123-23-45-33Y/delete`
 
-    11. DELETE para eliminar definitivamente a un usuario si de verdad no quiere volver a la asociación
+    [x]11. DELETE para eliminar definitivamente a un usuario si de verdad no quiere volver a la asociación
     - Ejemplo: `/astronomy/guild/123-23-45-33Y`
